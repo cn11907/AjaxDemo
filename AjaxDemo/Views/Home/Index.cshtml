@@ -1,8 +1,84 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Styles
+{
+    <style>
+        h1{background-color:lightblue}
+    </style>
 
+}
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <ul id="myUl">
+
+    </ul>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+@section Scripts
+{
+   <script>
+         // $('.display-4').text('Welcome Ajax!!')  
+         // //讀取JSON資料
+         // // [ 0,1,2] => 陣列，透過 Index 讀取資料
+         // //{屬性:屬性值,key:value} => 物件.屬性 => 屬性值
+         //   //console.log(emps[1]);  //{"name":"Jack","workYears":5,"salary":40000}
+         //   //console.log(emps[1].name);  //Jack
+         //   //console.log(emps[1].salary);  //40000
+         //   for(let i=0,max=emps.length;i<max;i++){ // console.log(emps[i].name);
+         // console.log(emps[i].workYears);
+         // console.log(emps[i].salary);
+         // }
+
+
+  const emp={
+  "employees" : [
+  { "name" : "Tom" , "workYears" : 3, "salary" : 35000 },
+  { "name" : "Jack" , "workYears" : 5, "salary" : 40000 },
+  { "name" : "Mary" , "workYears" : 7, "salary" : 45000 }
+  ]
+  };
+
+        //var emp1= emp.employees;
+        
+        var eleUl=document.querySelector('#myUl');
+
+
+        //for(var i= 0;i<emp.employees.length;i++){
+        //    //console.log(emp1[i].name);
+        //    //console.log(emp1[i].workYears);
+        //    //console.log(emp1[i].salary); 
+        //    const { name, workYears,salary}=emp.employees[i];
+
+        //    var eleLi=document.createElement('li');
+
+        //    var txtLi=document.createTextNode(name);
+
+        //    eleLi.appendChild(txtLi);
+        //    eleUl.appendChild(eleLi);
+        //}
+ 
+
+        emp.employees.forEach((value,index,array)=>{
+            const {name,workYears,salary}=value;
+            console.log(name);
+        })
+
+
+        let datas=emp.employees.map((emp,index,array)=>{
+            const {name,workYears,salary}=emp;
+            return (`<li>${name} - ${salary}</li>`);
+        })
+        eleUl.innerHTML=datas.join("");
+
+
+        emp.employees.map()
+
+
+    </script>
+
+
+
+}
