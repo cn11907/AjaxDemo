@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "TravelCard";
+}
+@section Styles
+{
+    <style>
+        .card{background-color:antiquewhite}
+    </style>
+}
+<script src="~/js/travel.js"></script>
+
+<h1>TravelCard</h1>
+<br />
+<hr />
+
+<div id="card">
+    
+</div>
+
+
+@section Scripts
+{
+    <script>
+        console.log(DATAS);        
+        const card = document.querySelector("#card");
+  
+
+        let datas=DATAS.map((DATAS,index,array)=>{
+            const { Name, Tel, Toldescribe, Website, TYWebsite, Opentime, Ticketinfo } = DATAS;
+
+            var data = `
+            <div class="card" style="width: 36rem;">
+                <div class="card-body">
+                    <h1 class="card-title">${Name}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${Tel}</h6>
+                            <p  class="card-text">營業時間: ${Opentime}</p>
+                            <p  class="card-text">門票: ${Ticketinfo}</p>
+                            <p  class="card-text">${Toldescribe}</p>
+                            <a  href="${Website}" class="card-link">官方網站</a>
+                            <a  href="${TYWebsite}" class="card-link">導覽網站</a>
+                </div>
+            </div>
+            <br/>
+                `;
+
+            return (data);
+            })
+            card.innerHTML=datas.join("");
+
+
+
+    </script>
+}
