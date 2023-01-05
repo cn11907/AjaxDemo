@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "FirstAjax";
+}
+
+<h1>FirstAjax</h1>
+<input type="text" id="txt1"/>
+<button id="btn1" class="btn btn-primary">click</button>
+<div id="div1" class="mt-2 p-2 w-25 border-danger"></div>
+
+@section Scripts
+{
+<script>
+        const btn1=document.querySelector('#btn1')
+        const div1=document.querySelector('#div1')
+        const txt1=document.querySelector('#txt1')
+        const xhr= new XMLHttpRequest();
+        btn1.addEventListener('click',()=>{
+
+
+            xhr.open("get",`/api/index?name=${txt1.value}`);
+            xhr.send();
+        })
+        
+        xhr.addEventListener('load',()=>{
+
+            const data= xhr.responseText;
+            div1.innerHTML=`<h2>${data}</h2>`;
+            
+        })
+</script>
+}
