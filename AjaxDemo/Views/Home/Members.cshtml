@@ -1,0 +1,22 @@
+﻿@model IEnumerable<AjaxDemo.Models.Member>
+@{
+    ViewData["Title"] = "Members";
+}
+
+<h1>Members</h1>
+
+@*<ul>
+   
+        <li>@Model</li>
+    
+</ul>*@
+
+<ul>
+ @foreach(var product in Model)
+ {
+ <li>@product.Name</li>
+ }
+</ul>
+
+
+<script>console.log(@Model)</script>
