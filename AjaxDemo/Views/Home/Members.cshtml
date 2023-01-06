@@ -5,16 +5,10 @@
 
 <h1>Members</h1>
 
-@*<ul>
-   
-        <li>@Model</li>
-    
-</ul>*@
-
 <ul>
- @foreach(var product in Model)
+ @foreach(var members in Model)
  {
- <li>@product.Name</li>
+ <li>@members.Name</li>
  }
 </ul>
 
