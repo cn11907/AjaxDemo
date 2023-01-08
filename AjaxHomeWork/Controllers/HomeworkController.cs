@@ -24,6 +24,17 @@ namespace AjaxHomeWork.Controllers
 
             return View();
         }
+        [HttpPost]
+        public IActionResult CheckName(string name)
+        {
+            foreach(var member in _context.Members)
+            {
+                if (member.Name.ToLower() == name.ToLower())               
+                    return Content("姓名已存在");
+                      
+            }
+            return Content(name+"可以使用");
+        }
 
     }
 }
