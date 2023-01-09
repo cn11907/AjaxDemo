@@ -57,5 +57,35 @@ namespace AjaxDemo.Controllers
             //return Content($"{_host.WebRootPath} - {_host.ContentRootPath}");
             return Content("上傳成功");
         }
-    }
+
+
+
+        public IActionResult City() 
+        {
+            //var cities = _context.Address.Select(c => new { c.City }).Distinct().OrderBy(c => c.City);
+            var cities = _context.Address.Select(c => c.City).Distinct();
+            return Json(cities); 
+        }
+        public IActionResult Site(string city)
+        {
+           // var sities = _context.Address.Where(s=>s.City==city).Select(s => new { s.SiteId }).Distinct().OrderBy(s => s.SiteId);
+            var sites = _context.Address.Where(s => s.City == city).Select(s => s.SiteId).Distinct();
+            return Json(sites);
+        }
+        public IActionResult Road(string site)
+        {
+            //var roads = _context.Address.Where(r => r.SiteId == site).Select(r => new { r.Road }).Distinct().OrderBy(r => r.Road);
+             var roads = _context.Address.Where(s => s.SiteId == site).Select(s => s.Road).Distinct();
+            return Json(roads);
+        }
+        public IActionResult Fetch(string site)
+        {
+
+            return View();
+
+        }
+
+
+
+        }
 }
