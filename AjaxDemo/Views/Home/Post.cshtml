@@ -4,13 +4,14 @@
 }
 
 <h1>Post</h1>
-
-<input type="text" id="txt1"/><br/>
-<input type="text" id="txt2"/><br/>
-
-<button id="btn1" class="btn btn-primary">start</button>
+<form method="post" name="userForm" class="w-50">
+<input type="text" name="name" id="txt1"/><br/>
+<input type="text" name="age" id="txt2"/><br/>
+ <input class="form-control" type="file" id="formFile" name="photo">
+ <input type="button" id="btn1" class="btn btn-primary" value="start"/>
 <button id="btn2"  class="btn btn-danger">stop</button>
 <div id="div1" class="mt-2 p-2 w-25 border-danger"></div>
+</form>
 @section Scripts
 {
 <script>
@@ -18,21 +19,22 @@
         const txt1=document.querySelector('#txt1')
         const txt2 = document.querySelector('#txt2')
         const div1 = document.querySelector('#div1')
-
-        const xhr=new XMLHttpRequest();
+      //  const xhr=new XMLHttpRequest();
 
 
         btn1.addEventListener('click',()=>{
+        const formData = new FormData(document.userForm);
 
-            xhr.open('POST','/api/index')
-            xhr.setRequestHeader('Content-Type',"application/x-www-form-urlencoded");
-            xhr.send(`name=${txt1.value}&age=${txt2.value}`)
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', () => {
+                document.querySelector('#div1').innerHTML = xhr.responseText;
+            })
+
+           
+            xhr.open("POST", "@Url.Content("/api/register")");
+            xhr.send(formData);
         })
 
-        xhr.addEventListener('load',()=>{
-            const data= xhr.responseText;
-            div1.innerHTML=`<h2>${data}</h2>`;
-        })
 
 
 

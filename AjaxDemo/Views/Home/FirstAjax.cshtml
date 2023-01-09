@@ -25,9 +25,9 @@
         })
 
         btn1.addEventListener('click',()=>{
-           
 
-            xhr.open("get",`/api/index?name=${txt1.value}`);
+            
+            xhr.open("get",`@Url.Content("~/api/index?name=${txt1.value}")`);
             //xhr.timeout=1000;
             xhr.send();
         })

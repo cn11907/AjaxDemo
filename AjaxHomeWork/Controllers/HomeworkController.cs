@@ -29,13 +29,18 @@ namespace AjaxHomeWork.Controllers
         {
             if (string.IsNullOrEmpty(name))
                 return Content("請輸入姓名");
-            foreach(var member in _context.Members)
-            {
-                if (member.Name.ToLower() == name.ToLower())               
-                    return Content("姓名已存在");
-                      
-            }
-            return Content(name+"可以使用");
+            //foreach(var member in _context.Members)
+            //{
+            //    if (member.Name.ToLower() == name.ToLower())               
+            //        return Content("姓名已存在");                      
+            //}
+            //return Content(name+"可以使用");
+            //------------老師建議----------------||
+            var exists = _context.Members.Any(m => m.Name == name);
+            if(exists)
+                return Content("姓名已存在");
+            else
+                return Content(name + "可以使用");
         }
 
     }
