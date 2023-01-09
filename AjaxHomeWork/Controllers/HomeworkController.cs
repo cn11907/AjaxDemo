@@ -27,6 +27,8 @@ namespace AjaxHomeWork.Controllers
         [HttpPost]
         public IActionResult CheckName(string name)
         {
+            if (string.IsNullOrEmpty(name))
+                return Content("請輸入姓名");
             foreach(var member in _context.Members)
             {
                 if (member.Name.ToLower() == name.ToLower())               
