@@ -28,6 +28,15 @@ namespace AjaxDemo.Controllers
         {
             return View();
         }
+        public IActionResult jQuery()
+        {
+            return View();
+        }
+        public IActionResult Partial()
+        {
+            ViewBag.data = "Hello!Partial";
+            return PartialView(_context.Members);
+        }
         public IActionResult Post()
         {
             return View();

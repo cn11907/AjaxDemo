@@ -16,39 +16,74 @@
         const selsite = document.querySelector("#selsite")
         const selroad = document.querySelector("#selroad")
         selcity.addEventListener("change",()=>{
-            const xhr = new XMLHttpRequest();
-            const datas = JSON.parse(xhr.responseText);
-            //const siteOpts = datas.map((value) => {if(value==selCity.options[selCity.selectedIndex].value){
-            //    return (
-            //        `<option value="${value}">${value}</option>`
-            //    );}
-            //})
+            //const xhr = new XMLHttpRequest();
+            //const datas = JSON.parse(xhr.responseText);
+            ////const siteOpts = datas.map((value) => {if(value==selCity.options[selCity.selectedIndex].value){
+            ////    return (
+            ////        `<option value="${value}">${value}</option>`
+            ////    );}
+            ////})
 
-             xhr.open("get",`@Url.Content("~/api/site?city=${selcity.value}")`);
-            xhr.send();
-        })
+            // xhr.open("get",`@Url.Content("~/api/site?city=${selcity.value}")`);
+            //xhr.send();
 
-        loadData();
-        function loadData(){
-        const xhr=new XMLHttpRequest();
             
-            xhr.addEventListener("load",()=>{
 
-            const datas = JSON.parse(xhr.responseText);
-           // console.log(datas);
-            const cityOpts=datas.map((value)=>{
-                return(
-                    `<option value="${value}">${value}</option>`
-                );
-            })
-                selcity.innerHTML=cityOpts.join("");
-            })
+
+            loadSite(selcity.value)
+
+            
+
+
+        })
+        selsite.addEventListener("change", () => {
+            loadroad(selsite.value)
+        })
+        //loadData();
+        //function loadData(){
+        //const xhr=new XMLHttpRequest();
+            
+        //    xhr.addEventListener("load",()=>{
+
+        //    const datas = JSON.parse(xhr.responseText);
+        //   // console.log(datas);
+        //    const cityOpts=datas.map((value)=>{
+        //        return(
+        //            `<option value="${value}">${value}</option>`
+        //        );
+        //    })
+        //        selcity.innerHTML=cityOpts.join("");
+        //    })
            
 
-            xhr.open("get",`@Url.Content("~/api/city")`);
-            xhr.send();
+        //    xhr.open("get",`@Url.Content("~/api/city")`);
+        //    xhr.send();
+        //}
+        loadCity();
+        async function loadCity(){
+
+            const response = await fetch(`@Url.Content("~/api/city")`);
+            const datas = await response.json();
+            const cityOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selcity.innerHTML=cityOpts.join("");
+            loadSite(selcity.value)
         }
 
+        async function loadSite(sel){
+            const response=await fetch(`@Url.Content("~/api/site?city=${sel}")`);
+            const datas = await response.json();
+            const siteOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selsite.innerHTML=siteOpts.join("");
+            loadroad(selsite.value)
+
+        }
+
+        async function loadroad(sel){
+            const response = await fetch(`@Url.Content("~/api/road?site=${sel}")`);
+            const datas = await response.json();
+            const roadOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selroad.innerHTML=roadOpts.join("");
+        }
 
 
     </script>

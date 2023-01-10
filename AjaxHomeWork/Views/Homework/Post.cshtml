@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Post";
+}
+@section Styles{
+    <style>
+
+    </style>
+}
+
+<h1>Post</h1>
+
+<select class="form-select m-2" id="selcity"></select> <select class="form-select  m-2" id="selsite"></select> <select class="form-select  m-2" id="selroad"></select>
+
+
+
+
+
+
+@section Scripts{
+    <script>
+        const selcity = document.querySelector("#selcity")
+        const selsite = document.querySelector("#selsite")
+        const selroad = document.querySelector("#selroad")
+        selcity.addEventListener("change", () => {
+            loadSite(selcity.value)
+        })
+        selsite.addEventListener("change", () => {
+            loadroad(selsite.value)
+        })    
+        loadCity();
+        async function loadCity() {
+            const response = await fetch(`@Url.Content("~/homework/city")`);
+            const datas = await response.json();
+            const cityOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selcity.innerHTML = cityOpts.join("");
+            loadSite(selcity.value)
+        }
+        async function loadSite(sel) {
+            const response = await fetch(`@Url.Content("~/homework/site?city=${sel}")`);
+            const datas = await response.json();
+            const siteOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selsite.innerHTML = siteOpts.join("");
+            loadroad(selsite.value)
+
+        }
+        async function loadroad(sel) {
+            const response = await fetch(`@Url.Content("~/homework/road?site=${sel}")`);
+            const datas = await response.json();
+            const roadOpts = datas.map(value => `<option value="${value}">${value}</option>`);
+            selroad.innerHTML = roadOpts.join("");
+        }
+
+
+
+
+
+
+
+
+    </script>
+}

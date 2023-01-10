@@ -36,15 +36,32 @@
 <script>
         const btn = document.querySelector('#btn');
     const p=document.querySelector('#p');
-    btn.addEventListener("click",()=>{
-    const xhr = new XMLHttpRequest();
+    btn.addEventListener("click",async(event)=>{
+        event.preventDefault();
+        const formData = new FormData(document.userForm);
+        const response = await fetch("@Url.Content("~/api/Register")",{
+        method:"post",
+        body:formData
+       
+        });
+        const data = await response.text();
+            p.textContent=data;
 
-    xhr.addEventListener('load',()=>{
-                p.textContent = `${xhr.responseText}`;
-    })
-    const formData = new FormData(document.userForm);
-            xhr.open("POST", "@Url.Content("~/api/Register")");
-            xhr.send(formData);
+
+
+
+
+
+
+    //const xhr = new XMLHttpRequest();
+
+    //xhr.addEventListener('load',()=>{
+    //            p.textContent = `${xhr.responseText}`;
+    //})
+    //const formData = new FormData(document.userForm);
+    //        xhr.open("POST", "@Url.Content("~/api/Register")");
+    //        xhr.send(formData);
+
     })
 </script>
 }

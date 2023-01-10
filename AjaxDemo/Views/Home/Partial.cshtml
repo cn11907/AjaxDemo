@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AjaxDemo.Models.Member>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<h2>@ViewBag.data</h2>
+
+<h3>Partial</h3>
+<ul class="list-group">
+    @foreach(var member in Model){
+    <li class="list-group-item list-group-item-danger">@member.Name</li>
+    }
+</ul>
