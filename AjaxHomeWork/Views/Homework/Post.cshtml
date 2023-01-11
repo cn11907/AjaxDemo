@@ -4,30 +4,42 @@
 }
 @section Styles{
     <style>
-
+        .sel{color:red;}
+        
     </style>
 }
 
 <h1>Post</h1>
-
+<br />
 <select class="form-select m-2" id="selcity"></select> <select class="form-select  m-2" id="selsite"></select> <select class="form-select  m-2" id="selroad"></select>
+<br/>
+<div id="div1">
+    <table  class=" table table-bordered border-primary">
 
-
-
-
-
-
+        <tbody id="table1">
+            
+        </tbody>
+    </table>
+</div>
 @section Scripts{
     <script>
         const selcity = document.querySelector("#selcity")
         const selsite = document.querySelector("#selsite")
         const selroad = document.querySelector("#selroad")
+        const div1=document.querySelector("#div1")
         selcity.addEventListener("change", () => {
             loadSite(selcity.value)
+            printSiteTable(selcity.value, selsite.value)
         })
         selsite.addEventListener("change", () => {
             loadroad(selsite.value)
-        })    
+            printRoadTable(selsite.value)
+        })
+        selroad.addEventListener("change", () => {
+            $("td").removeClass("sel");
+            $(`td:contains('${selroad.value}')`).addClass("sel");
+        })
+
         loadCity();
         async function loadCity() {
             const response = await fetch(`@Url.Content("~/homework/city")`);
@@ -49,10 +61,28 @@
             const datas = await response.json();
             const roadOpts = datas.map(value => `<option value="${value}">${value}</option>`);
             selroad.innerHTML = roadOpts.join("");
+            
         }
 
+        async function printSiteTable(city, site) {
+            const cityResponse = await fetch(`@Url.Content("~/homework/site?city=${city}")`);
+            const cityDatas = await cityResponse.json();
+            const siteResponse = await fetch(`@Url.Content("~/homework/road?site=${site}")`);
+            const siteDatas = await siteResponse.json();
 
+            const listUl = cityDatas.map(siteValue =>
+                `<tr><td width="25%" rowspan=${siteDatas.length + 1}>${siteValue}</td></tr>` + siteDatas.map(roadValue => `<tr><td>${roadValue}</td></tr>`).join("") + `<br/>`);         
+            const table1=document.querySelector("#table1")
 
+            table1.innerHTML = listUl.join("");          
+        }
+        async function printRoadTable(site) {
+            const siteResponse = await fetch(`@Url.Content("~/homework/road?site=${site}")`);
+            const siteDatas = await siteResponse.json();
+            const listUl = `<tr><td width="25%" rowspan=${siteDatas.length + 1}>${selsite.value}</td></tr>`+siteDatas.map(roadValue => `<tr><td>${roadValue}</td></tr>`).join("");
+            const table1=document.querySelector("#table1")
+            table1.innerHTML = listUl;           
+        }
 
 
 
